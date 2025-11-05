@@ -23,7 +23,7 @@
     kubectl exec $POD_NAME -it -n todoapp -- sh
     ```
 
-3.  **Виконайте команду `curl`** всередині Pod для перевірки доступу до API (переконайтеся, що ви знаходитеся в оболонці Pod, #):
+3.  **Виконайте команду `curl`** всередині Pod для перевірки доступу до API (переконайтеся, що ви знаходитеся в оболонці Pod, `#`):
     ```sh
     # Встановлення змінних Service Account
     APISERVER=[https://kubernetes.default.svc](https://kubernetes.default.svc)
@@ -31,10 +31,7 @@
     TOKEN=$(cat ${SERVICEACCOUNT}/token)
     CACERT=${SERVICEACCOUNT}/ca.crt
 
-    # Запит на список Secrets у Namespace 'todoapp'
+    # Запит на список Secrets у Namespace 'todoapp'.
+    # Цей запит повинен завершитися успіхом (код 200 OK), підтверджуючи права RBAC.
     curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISERVER}/api/v1/namespaces/todoapp/secrets
     ```
-
-### Очікуваний результат
-
-Команда повинна повернути **повний JSON-вивід** зі списком об'єктів Secret (код **200 OK**), підтверджуючи, що Service Account `secrets-reader` коректно отримав дозволи RBAC на перегляд секретів.
