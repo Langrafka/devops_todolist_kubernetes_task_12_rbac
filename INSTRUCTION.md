@@ -27,7 +27,7 @@
 3.  **Виконайте команду `curl`** всередині Pod для перевірки доступу до API (переконайтеся, що ви знаходитеся в оболонці Pod, `#`):
     ```sh
     # Встановлення змінних Service Account
-    APISERVER=[https://kubernetes.default.svc](https://kubernetes.default.svc) # <-- ВИПРАВЛЕНО: Видалено Markdown-форматування
+    APISERVER=https://kubernetes.default.svc
     SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
     TOKEN=$(cat ${SERVICEACCOUNT}/token)
     CACERT=${SERVICEACCOUNT}/ca.crt
