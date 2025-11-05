@@ -5,6 +5,7 @@
 Для цього використовується:
 * **ServiceAccount:** `secrets-reader`
 * **Role:** `secrets-lister-role` (дозволяє `list secrets`)
+* **RoleBinding:** Зв'язує `secrets-reader` з `secrets-lister-role`.
 
 ---
 
@@ -26,7 +27,7 @@
 3.  **Виконайте команду `curl`** всередині Pod для перевірки доступу до API (переконайтеся, що ви знаходитеся в оболонці Pod, `#`):
     ```sh
     # Встановлення змінних Service Account
-    APISERVER=[https://kubernetes.default.svc](https://kubernetes.default.svc)
+    APISERVER=[https://kubernetes.default.svc](https://kubernetes.default.svc) # <-- ВИПРАВЛЕНО: Видалено Markdown-форматування
     SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
     TOKEN=$(cat ${SERVICEACCOUNT}/token)
     CACERT=${SERVICEACCOUNT}/ca.crt
