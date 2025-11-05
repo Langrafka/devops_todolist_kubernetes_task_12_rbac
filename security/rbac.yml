@@ -1,0 +1,38 @@
+# security/rbac.yml
+
+# 1. ServiceAccount: Обліковий запис, який використовуватиме Deployment
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: secrets-reader # Має відповідати serviceAccountName у Deployment
+  namespace: todoapp
+
+---
+
+# 2. Role: Дозвіл на "list" ресурсів "secrets"
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: secrets-lister-role
+  namespace: todoapp
+rules:
+- apiGroups: [""] # Core API Group
+  resources: ["secrets"]
+  verbs: ["list"] # Дозвіл на list secrets
+
+---
+
+# 3. RoleBinding: Зв'язок Ролі з ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: secrets-lister-binding
+  namespace: todoapp
+subjects:
+- kind: ServiceAccount
+  name: secrets-reader # Посилання на створений ServiceAccount
+  namespace: todoapp
+roleRef:
+  kind: Role
+  name: secrets-lister-role # Посилання на створену Role
+  apiGroup: rbac.authorization.k8s.io
